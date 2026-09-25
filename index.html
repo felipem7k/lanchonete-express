@@ -12,7 +12,90 @@
     <div class="container py-5">
         <h1 class="mb-4">Lanchonete Express</h1>
         <div class="row g-4">
-            <div class="col-lg-7"></div>
+            <div class="col-lg-7">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="h5 card-title mb-3">Monte seu pedido</h2>
+
+                        <div class="mb-4">
+                            <label for="select-lanche" class="form-label">Lanche principal</label>
+                            <select class="form-select" id="select-lanche">
+                                <option value="0">-- Selecione um lanche --</option>
+                                <option value="18.00">X-Burger Clássico — R$ 18,00</option>
+                                <option value="22.00">X-Salada Especial — R$ 22,00</option>
+                                <option value="26.00">X-Bacon Supremo — R$ 26,00</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <span class="form-label d-block">Adicionais</span>
+
+                            <div class="form-check form-switch">
+                                <input class="form-check-input check-adicional" type="checkbox" id="check-queijo" value="3.00">
+                                <label class="form-check-label" for="check-queijo">
+                                    Queijo extra <span class="badge text-bg-secondary">R$ 3,00</span>
+                                </label>
+                            </div>
+
+                            <div class="form-check form-switch">
+                                <input class="form-check-input check-adicional" type="checkbox" id="check-bacon" value="4.00">
+                                <label class="form-check-label" for="check-bacon">
+                                    Bacon <span class="badge text-bg-secondary">R$ 4,00</span>
+                                </label>
+                            </div>
+
+                            <div class="form-check form-switch">
+                                <input class="form-check-input check-adicional" type="checkbox" id="check-batata" value="8.00">
+                                <label class="form-check-label" for="check-batata">
+                                    Batata frita <span class="badge text-bg-secondary">R$ 8,00</span>
+                                </label>
+                            </div>
+
+                            <div class="form-check form-switch">
+                                <input class="form-check-input check-adicional" type="checkbox" id="check-bebida" value="6.00">
+                                <label class="form-check-label" for="check-bebida">
+                                    Bebida <span class="badge text-bg-secondary">R$ 6,00</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="input-qtd" class="form-label">Quantidade</label>
+                            <div class="input-group" style="max-width: 160px;">
+                                <button class="btn btn-outline-secondary" type="button" id="btn-diminuir">
+                                    <i class="bi bi-dash-lg"></i>
+                                </button>
+                                <input type="number" class="form-control text-center" id="input-qtd" value="1" min="1">
+                                <button class="btn btn-outline-secondary" type="button" id="btn-aumentar">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="select-entrega" class="form-label">Tipo de entrega</label>
+                            <select class="form-select" id="select-entrega">
+                                <option value="0.00">Retirar no local — Grátis</option>
+                                <option value="5.00">Entrega padrão — R$ 5,00</option>
+                                <option value="10.00">Entrega expressa — R$ 10,00</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="input-cupom" class="form-label">Cupom de desconto</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="input-cupom" placeholder="Código do cupom">
+                                <button class="btn btn-outline-secondary" type="button" id="btn-aplicar-cupom">Aplicar</button>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary w-100" type="button" id="btn-finalizar">
+                            <i class="bi bi-cart-check-fill"></i>
+                            Finalizar Pedido
+                        </button>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-5"></div>
         </div>
     </div>
