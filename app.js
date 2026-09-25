@@ -65,5 +65,59 @@ $(document).ready(function () {
         $("#input-qtd").val(novaQuantidade).trigger("change");
     });
 
-    calcularTotal();
+    $("#btn-limpar").on("click", () => {
+        $("#select-lanche").val("0");
+        $(".check-adicional").prop("checked", false);
+        $("#input-qtd").val(1);
+        $("#select-entrega").val("0.00");
+        $("#input-cupom").val("");
+        $("#feedback-cupom").removeClass("text-success text-danger").text("");
+        percentualCupomAplicado = 0;
+
+        localStorage.removeItem("rascunho_pedido");
+        calcularTotal();
+    });
+
+    $("#btn-finalizar").on("click", () => {
+        const pedido = {
+            lanche: $("#select-lanche").val(),
+            qtd: $("#input-qtd").val(),
+            entrega: $("#select-entrega").val(),
+            adicionais: $(".check-adicional:checked").map(function () {
+                return this.id;
+            }).get(),
+            cupom: $("#input-cupom").val()
+        };
+
+        localStorage.setItem("rascunho_pedido", JSON.stringify(pedido));
+        alert("Pedido salvo no navegador!");
+    });
+
+    const restaurarRascunho = () => {
+        const rascunhoSalvo = localStorage.getItem("rascunho_pedido");
+
+        if (!rascunhoSalvo) {
+            calcularTotal();
+            return;
+        }
+
+        const pedido = JSON.parse(rascunhoSalvo);
+
+        $("#select-lanche").val(pedido.lanche);
+        $("#input-qtd").val(pedido.qtd);
+        $("#select-entrega").val(pedido.entrega);
+        $("#input-cupom").val(pedido.cupom);
+
+        (pedido.adicionais || []).forEach((id) => {
+            $("#" + id).prop("checked", true);
+        });
+
+        if (pedido.cupom) {
+            $("#btn-aplicar-cupom").trigger("click");
+        } else {
+            calcularTotal();
+        }
+    };
+
+    restaurarRascunho();
 });
