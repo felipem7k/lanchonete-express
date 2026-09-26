@@ -10,6 +10,10 @@ $(document).ready(function () {
         return "R$ " + valor.toFixed(2).replace(".", ",");
     };
 
+    const lerQuantidade = () => {
+        return Math.max(1, parseInt($("#input-qtd").val()) || 1);
+    };
+
     const calcularTotal = () => {
         const precoLanche = parseFloat($("#select-lanche").val()) || 0;
 
@@ -18,7 +22,7 @@ $(document).ready(function () {
             somaAdicionais += parseFloat($(this).val()) || 0;
         });
 
-        const quantidade = parseInt($("#input-qtd").val()) || 1;
+        const quantidade = lerQuantidade();
         const subtotal = (precoLanche + somaAdicionais) * quantidade;
         const desconto = subtotal * percentualCupomAplicado;
         const taxaEntrega = parseFloat($("#select-entrega").val()) || 0;
@@ -31,7 +35,11 @@ $(document).ready(function () {
     };
 
     $("#select-lanche, #select-entrega, .check-adicional").on("change", calcularTotal);
-    $("#input-qtd").on("input change", calcularTotal);
+    $("#input-qtd").on("input", calcularTotal);
+    $("#input-qtd").on("change", () => {
+        $("#input-qtd").val(lerQuantidade());
+        calcularTotal();
+    });
 
     $("#btn-aplicar-cupom").on("click", () => {
         const codigoCupom = $("#input-cupom").val().trim().toUpperCase();
@@ -55,14 +63,11 @@ $(document).ready(function () {
     });
 
     $("#btn-aumentar").on("click", () => {
-        const quantidadeAtual = parseInt($("#input-qtd").val()) || 1;
-        $("#input-qtd").val(quantidadeAtual + 1).trigger("change");
+        $("#input-qtd").val(lerQuantidade() + 1).trigger("change");
     });
 
     $("#btn-diminuir").on("click", () => {
-        const quantidadeAtual = parseInt($("#input-qtd").val()) || 1;
-        const novaQuantidade = Math.max(1, quantidadeAtual - 1);
-        $("#input-qtd").val(novaQuantidade).trigger("change");
+        $("#input-qtd").val(Math.max(1, lerQuantidade() - 1)).trigger("change");
     });
 
     $("#btn-limpar").on("click", () => {
@@ -81,7 +86,7 @@ $(document).ready(function () {
     $("#btn-finalizar").on("click", () => {
         const pedido = {
             lanche: $("#select-lanche").val(),
-            qtd: $("#input-qtd").val(),
+            qtd: lerQuantidade(),
             entrega: $("#select-entrega").val(),
             adicionais: $(".check-adicional:checked").map(function () {
                 return this.id;
@@ -93,15 +98,21 @@ $(document).ready(function () {
         alert("Pedido salvo no navegador!");
     });
 
-    const restaurarRascunho = () => {
-        const rascunhoSalvo = localStorage.getItem("rascunho_pedido");
+    const lerRascunho = () => {
+        try {
+            return JSON.parse(localStorage.getItem("rascunho_pedido"));
+        } catch {
+            return null;
+        }
+    };
 
-        if (!rascunhoSalvo) {
+    const restaurarRascunho = () => {
+        const pedido = lerRascunho();
+
+        if (!pedido) {
             calcularTotal();
             return;
         }
-
-        const pedido = JSON.parse(rascunhoSalvo);
 
         $("#select-lanche").val(pedido.lanche);
         $("#input-qtd").val(pedido.qtd);
