@@ -1,0 +1,70 @@
+:root {
+    --cor-destaque: #c2410c;
+    --cor-destaque-escura: #a5360a;
+    --cor-destaque-clara: #e0a184;
+    --cor-fundo: #f7f5f1;
+    --cor-borda: #e3ded5;
+}
+
+body {
+    background-color: var(--cor-fundo);
+}
+
+.topo {
+    background-color: #fff;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.topo-marca i {
+    color: var(--cor-destaque);
+}
+
+.card {
+    --bs-card-border-color: var(--cor-borda);
+}
+
+.form-label {
+    font-weight: 600;
+}
+
+.grupo-quantidade {
+    max-width: 160px;
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--cor-destaque);
+    --bs-btn-border-color: var(--cor-destaque);
+    --bs-btn-hover-bg: var(--cor-destaque-escura);
+    --bs-btn-hover-border-color: var(--cor-destaque-escura);
+    --bs-btn-active-bg: var(--cor-destaque-escura);
+    --bs-btn-active-border-color: var(--cor-destaque-escura);
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+    border-color: var(--cor-destaque-clara);
+    box-shadow: 0 0 0 0.25rem rgba(194, 65, 12, 0.2);
+}
+
+.form-check-input:checked {
+    background-color: var(--cor-destaque);
+    border-color: var(--cor-destaque);
+}
+
+.form-switch .form-check-input:focus:not(:checked) {
+    --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23e0a184'/%3e%3c/svg%3e");
+}
+
+.total-destaque {
+    background-color: var(--cor-destaque);
+    border: 0;
+    color: #fff;
+}
+
+@media (min-width: 992px) {
+    .resumo-fixo {
+        position: sticky;
+        top: 1.5rem;
+    }
+}
